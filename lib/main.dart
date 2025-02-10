@@ -38,20 +38,24 @@ class _HomePageState extends State<HomePage> {
   // GlobalKey to get the FAB position
   final GlobalKey _fabKey = GlobalKey();
 
+  // Unique whenver registering the imageview
   String currentViewId = "image-view-1"; // Dynamic view ID
 
+  /// register imageview to show the image in web view in native web
   void _registerImageView() {
     if (imageUrl != null) {
       PlatformViewFactory.registerImageView(currentViewId, imageUrl!);
     }
   }
 
+  // toggle fullScreen
   void _toggleFullScreen() {
     html.document.fullscreenElement != null
         ? html.document.exitFullscreen()
         : html.document.documentElement?.requestFullscreen();
   }
 
+  // Toggle the overlay
   void _toggleContextMenu() {
     setState(() {
       isContextMenuVisible = !isContextMenuVisible;
@@ -64,6 +68,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  // Overlay UI design to show thw overlay above the FAB button
   void _showOverlay() {
     // Get the position of the FAB using the GlobalKey
     final RenderBox renderBox =
@@ -134,6 +139,7 @@ class _HomePageState extends State<HomePage> {
     Overlay.of(context)?.insert(_overlayEntry!);
   }
 
+  // Reomving the overlay
   void _removeOverlay() {
     _overlayEntry?.remove();
     setState(() {
@@ -145,6 +151,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        /// if overlay visible remove it
         if (isContextMenuVisible) {
           _removeOverlay();
         }
